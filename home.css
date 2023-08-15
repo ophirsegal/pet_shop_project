@@ -4,13 +4,26 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+    font-family: 'Poppins', sans-serif;
 
+}
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #545151;
+
+}
 body {
-    font-family: 'Roboto', Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #eae7dc;
-    color: #333;
+    min-height: 100%;
+    background: url('../images/beck.png') no-repeat center center;
+    background-size:cover;
+    height:810px;
+ color: #333;
 }
 
 .container {
@@ -20,10 +33,15 @@ body {
 }
 
 .top-container {
-    background-color: #e85a4f;
-    padding: 20px 0;
-    color: #eae7dc;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
 }
 
 .container {
@@ -51,34 +69,23 @@ body {
 }
 
 .cart-btn {
-    position: absolute;
-    left: 10px;
-    top: 15px;
     padding: 10px 20px;
     background-color: #8e8d8a;
     color: #eae7dc;
     text-decoration: none;
     border-radius: 5px;
     transition: background-color 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    cursor: pointer;
 }
 
 #logout-btn:hover, .cart-btn:hover {
-    background-color: #6a6a66;
+    background-color: #8e8d8a;
 }
 
-.main {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    gap: 20px;
-}
+
 
 .video-container {
     flex: 1;
-    background-color: #d8c3a5;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
@@ -89,7 +96,7 @@ body {
 
 
 video  {
-    max-width: 800px;  /* set to desired value */
+    max-width: 600px;  /* set to desired value */
     max-height: 600px;  /* set to desired value */
     border-radius: 10px;
     width: 100%;
@@ -98,7 +105,7 @@ video  {
 
 
 #map-section {
-    background-color: #d8c3a5;
+    background-color: #e6dccf;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
@@ -118,7 +125,7 @@ video  {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.1);
-    background-color: #d8c3a5;
+    z-index: 2;  
     transition: all 0.3s ease;
 }
 
@@ -128,8 +135,8 @@ video  {
 
 footer {
     width: 100%;
-    padding: 20px 0;
-    background-color: #e85a4f;
+    padding:5px ;
+    background-color: #454850;
     color: #eae7dc;
     text-align: center;
     position: relative;
@@ -140,7 +147,7 @@ footer {
 
 .all-pets-btn {
     padding: 10px 20px;
-    background-color: #e98074;
+    background-color: #8e8d8a;
     color: #eae7dc;
     text-decoration: none;
     border-radius: 5px;
@@ -149,5 +156,5 @@ footer {
 }
 
 .all-pets-btn:hover {
-    background-color: #e85a4f;
+    background-color: #7bc176;
 }

@@ -69,7 +69,7 @@ exports.orderPlaced = async (req, res) => {
     }
 };
 
-exports.showCart = async (req, res) => { // Add this method
+exports.showCart = async (req, res) => { 
     const { username } = req.session;
     try {
         const order = await Order.findOne({ username, isOrdered: false }).populate('orderedItems');

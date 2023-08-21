@@ -50,6 +50,9 @@ exports.userChat = (req, res) => {
 
 exports.signup = async (req, res) => {
     const { username, password } = req.body;
+    if (username.length > 10 || password.length > 10) {
+        return res.status(400).json({ error: 'Username and password should be 10 characters or less.' });
+    }
     try {
         const existingUser = await User.findOne({ username });
         if (existingUser) {

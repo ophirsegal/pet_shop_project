@@ -1,15 +1,23 @@
 const PetItem = require('../models/PetItem');
 
 exports.addPetItem = async (req, res) => {
-    const { name, quantity, petId } = req.body;
+    const { name, price, category, petId, image } = req.body;
+
+    const newPetItem = new PetItem({
+        name,
+        price,
+        category,
+        petId,
+        image
+    });
+
     try {
-        const petItem = new PetItem({ name, quantity, petId });
-        await petItem.save();
-        res.status(201).json(petItem);
+        await newPetItem.save();
+        res.status(200).send('Pet item added successfully');
     } catch (error) {
-        res.status(500).json({ error: error.toString() });
+        res.status(500).send('Error adding pet item');
     }
-}
+};
 
 exports.getPetItems = async (req, res) => {
     try {

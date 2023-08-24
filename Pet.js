@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// Define the structure of the Pet schema
 const PetSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -15,4 +16,5 @@ const PetSchema = new mongoose.Schema({
     }
 });
 
+// Create and export the Pet model using the defined schema
 module.exports = mongoose.model('Pet', PetSchema);

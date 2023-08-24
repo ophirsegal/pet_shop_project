@@ -1,23 +1,26 @@
-const mongoose = require('mongoose'); // Import the Mongoose library
+// Importing the mongoose library for working with MongoDB
+const mongoose = require('mongoose');
 const OrderSchema = new mongoose.Schema({
+    
+    // An array of ordered items, each referencing a "PetItem" document
     orderedItems: [{
-        type: mongoose.Schema.Types.ObjectId, // Array of ObjectIds, referencing 'PetItem' collection
-        ref: 'PetItem'                        // Reference to the 'PetItem' collection
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'PetItem' 
     }],
     orderDate: {
-        type: Date,              
-        default: Date.now       
+        type: Date,
+        default: Date.now
     },
     username: {
-        type: String,            // Username of the order
+        type: String,
         required: true
     },
     isOrdered: {
-        type: Boolean,           // Flag indicating if the order is completed
+        type: Boolean,
         default: false
     },
     totalPrice: {
-        type: Number,            // Total price of the order
+        type: Number,
         required: true,
         default: 0
     }

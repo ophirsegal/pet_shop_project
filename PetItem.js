@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 
+// Define the structure of the PetItem schema
 const PetItemSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    price: { // replaced 'quantity' with 'price'
+    price: {
         type: Number,
         required: true
     },
-    category: { // added 'category'
+    category: {
         type: String,
         required: true
     },
@@ -19,8 +20,13 @@ const PetItemSchema = new mongoose.Schema({
     },
     image: { 
         type: String,
-        required: false // make it required true if you want image to be mandatory
+        required: false
+    },
+    description: { 
+        type: String,
+        required: false
     }
 });
 
+// Create and export the PetItem model using the defined schema
 module.exports = mongoose.model('PetItem', PetItemSchema);

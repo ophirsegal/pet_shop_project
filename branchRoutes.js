@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Branch = require('../models/Branch');
+
 // List all branches
 router.get('/', async (req, res) => {
     const branches = await Branch.find();

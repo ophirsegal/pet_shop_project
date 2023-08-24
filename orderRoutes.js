@@ -6,10 +6,9 @@ router.post('/create', orderController.createOrder);
 router.post('/add-to-cart', orderController.addToCart);
 router.get('/all', orderController.getOrders);
 router.put('/:orderId/placed', orderController.orderPlaced);
-router.put('/removeFromCart/:petItemId', orderController.removeFromCart); // moved up
+router.put('/removeFromCart/:petItemId', orderController.removeFromCart); 
 router.get('/cart', orderController.showCart);
 router.get('/history', orderController.listPlacedOrders);
-
-router.put('/:orderId', orderController.updateOrder); // moved down
+router.put('/:orderId', orderController.updateOrder); 
 
 module.exports = router;

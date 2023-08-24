@@ -1,9 +1,11 @@
 const Pet = require('../models/Pet');
 const PetItem = require('../models/PetItem');
 
+// Add a new pet to the database
+
 exports.addPet = async (req, res) => {
     const { name, breed, age } = req.body;
-    try {
+    try { // Create a new Pet
         const pet = new Pet({ name, breed, age });
         await pet.save();
         res.status(201).json(pet);
@@ -11,15 +13,16 @@ exports.addPet = async (req, res) => {
         res.status(500).json({ error: error.toString() });
     }
 }
-
+// Retrieve all pets from the database
 exports.getPets = async (req, res) => {
-    try {
+    try {        // Fetch all pets from the database
         const pets = await Pet.find();
         res.status(200).json(pets);
     } catch (error) {
         res.status(500).json({ error: error.toString() });
     }
 }
+// Retrieve items for a specific pet from the database
 
 exports.getItems = async (req, res) => {
     try {
@@ -36,7 +39,7 @@ exports.getItems = async (req, res) => {
     }
 }
 
-
+// Retrieve items for a specific pet and category from the database
 exports.getItemsByCategory = async (req, res) => {
     try {
         const pet = await Pet.findById(req.params.petId);

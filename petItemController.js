@@ -1,5 +1,6 @@
 const PetItem = require('../models/PetItem');
 
+// Add a new pet item to the database
 exports.addPetItem = async (req, res) => {
     const { name, price, category, petId, image } = req.body;
 
@@ -18,6 +19,7 @@ exports.addPetItem = async (req, res) => {
         res.status(500).send('Error adding pet item');
     }
 };
+// Retrieve all pet items from the database
 
 exports.getPetItems = async (req, res) => {
     try {

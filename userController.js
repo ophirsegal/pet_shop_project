@@ -2,6 +2,7 @@ const User = require('../models/User');
 const Pet = require('../models/Pet');
 const Chat = require('../models/Chat');
 
+// Function to retrieve chat messages for authenticated users
 exports.getChats = async (req, res) => {
     if (req.session && req.session.username) {
         try {
@@ -21,7 +22,7 @@ exports.getChats = async (req, res) => {
     }
 };
 
-
+// Function to render the home page for authenticated users
 exports.home = async (req, res) => {
     if (req.session.username) {
         try {
@@ -43,11 +44,10 @@ exports.getUsername = (req, res) => {
     }
 };
 
-// ... rest of your controller methods
 exports.userChat = (req, res) => {
     res.render('chat');
 };
-
+// Function to handle user signup
 exports.signup = async (req, res) => {
     const { username, password } = req.body;
     if (username.length > 10 || password.length > 10) {
@@ -85,12 +85,13 @@ exports.getPetByName = async (req, res) => {
 };
 
 
+// Function to handle user login
 
-exports.login = async (req, res) => {
+exports.login = async (req, res) => { // Extracting username and password from request body
     const { username, password } = req.body;
     try {
         const user = await User.findOne({ username });
-        if (user && password === user.password) { // removed bcrypt.compare
+        if (user && password === user.password) { 
             req.session.username = username; // storing username in session
             res.redirect('/home');
         } else {

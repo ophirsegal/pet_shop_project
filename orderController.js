@@ -1,8 +1,10 @@
 const Order = require('../models/Order');
 
+// Create a new order
+
 exports.createOrder = async (req, res) => {
     const { orderedItems, username } = req.body;
-    try {
+    try {        // Create a new order instance with the provided data
         const order = new Order({ orderedItems, username });
         await order.save();
         res.status(201).json(order);
@@ -10,7 +12,7 @@ exports.createOrder = async (req, res) => {
         res.status(500).json({ error: error.toString() });
     }
 }
-
+// Retrieve aggregated order data for users
 exports.getOrders = async (req, res) => {
     try {
         const orders = await Order.aggregate([
@@ -33,7 +35,7 @@ exports.getOrders = async (req, res) => {
     }
 }
 
-
+// Add an item to the user's cart
 exports.addToCart = async (req, res) => {
     const { petItemId } = req.body;
     const { username } = req.session;  // Retrieve the username from the session
@@ -50,6 +52,8 @@ exports.addToCart = async (req, res) => {
         res.status(500).json({ error: error.toString() });
     }
 }
+
+// Mark an order as placed and calculate total price
 exports.orderPlaced = async (req, res) => {
     try {
         let order = await Order.findById(req.params.orderId).populate('orderedItems');
@@ -69,7 +73,9 @@ exports.orderPlaced = async (req, res) => {
     }
 };
 
-exports.showCart = async (req, res) => { 
+
+exports.showCart = async (req, res) => { // Display the user's shopping cart
+
     const { username } = req.session;
     try {
         const order = await Order.findOne({ username, isOrdered: false }).populate('orderedItems');
@@ -82,9 +88,12 @@ exports.showCart = async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 }
-exports.listPlacedOrders = async (req, res) => {
+
+exports.listPlacedOrders = async (req, res) => {// Display a list of placed orders for the user
+
     const { username } = req.session;
-    try {
+    try {        // Find and populate all placed orders for the user
+
         const orders = await Order.find({ username, isOrdered: true }).populate('orderedItems');
         res.render('orders', { orders }); // passing all orders to the orders.ejs view
     } catch (error) {

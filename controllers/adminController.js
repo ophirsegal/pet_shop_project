@@ -7,13 +7,6 @@ const PetItem = require('../models/PetItem');
 //const Twit = require('twit');
 const Chat = require('../models/Chat');
 
-// let T = new Twit({
-//    consumer_key: process.env.TWITTER_CONSUMER_KEY,
-//    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
-//    access_token: process.env.TWITTER_ACCESS_TOKEN,
-//    access_token_secret: process.env.TWITTER_TOKEN_SECRET,
-//    timeout_ms: 60 * 1000,
-// });
 
 
 exports.postTweet = async (req, res) => {
@@ -266,4 +259,11 @@ exports.showChats = (req, res) => {
     res.render('adminChat'); 
 };
 
+// let T = new Twit({
+//    consumer_key: process.env.TWITTER_CONSUMER_KEY,
+//    consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+//    access_token: process.env.TWITTER_ACCESS_TOKEN,
+//    access_token_secret: process.env.TWITTER_TOKEN_SECRET,
+//    timeout_ms: 60 * 1000,
+// });
 

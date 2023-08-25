@@ -28,11 +28,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Express Session Middleware
-// app.use(session({
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true
-// }));
+ app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+   saveUninitialized: true
+}));
 
 app.use(function(req, res, next){
     req.io = io;

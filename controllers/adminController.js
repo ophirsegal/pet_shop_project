@@ -15,24 +15,6 @@ let T = new Twit({
    timeout_ms: 60 * 1000,
 });
 
-exports.addPetItem = async (req, res) => {
-   const { name, price, category, petId, image } = req.body;
-
-   const newPetItem = new PetItem({
-       name,
-       price,
-       category,
-       petId,
-       image,
-   });
-
-   try {
-       await newPetItem.save();
-       res.status(200).send('Pet item added successfully');
-   } catch (error) {
-       res.status(500).send('Error adding pet item');
-   }
-};
 
 exports.postTweet = async (req, res) => {
    const tweet = req.body.status;
@@ -47,53 +29,63 @@ exports.checkAdmin = (req, res, next) => {
     if (req.session.username === 'admin') {
         next();
     } else {
-        res.send('<script>alert("Forbidden: You are not an admin."); window.location.href = "/";</script>');
+        res.send('<script>alert(" You are not an admin!!!!!!"); window.location.href = "/";</script>');
     }
 }
 
 exports.getSalesData = async (req, res) => {
-   try {
-       const salesData = await Order.aggregate([
-           {
-               $match: { isOrdered: true }
-           },
-           {
-               $unwind: "$orderedItems"
-           },
-           {
-               $lookup: {
-                   from: 'petitems', 
-                   localField: 'orderedItems', 
-                   foreignField: '_id', 
-                   as: 'petitem'
-               }
-           },
-           {
-               $unwind: "$petitem"
-           },
-           {
-               $group: {
-                   _id: { month: { $month: "$orderDate" }, year: { $year: "$orderDate" } },
-                   totalSales: { $sum: "$petitem.price" }
-               }
-           },
-           {
-               $project: {
-                   _id: 0,
-                   month: "$_id.month",
-                   year: "$_id.year",
-                   sales: "$totalSales"
-               }
-           },
-           {
-               $sort: { year: 1, month: 1 }
-           }
-       ]);
+    try {
+        // Use the `await` keyword to pause execution until the aggregation result is retrieved.
+        const salesData = await Order.aggregate([
+            // First aggregation stage: Match documents where the `isOrdered` field is true.
+            {
+                $match: { isOrdered: true }
+            },
+            // Second aggregation stage: Unwind the `orderedItems` array.
+            {
+                $unwind: "$orderedItems"
+            },
+            // Third aggregation stage: Perform a lookup to fetch additional data from the 'petitems' collection.
+            {
+                $lookup: {
+                    from: 'petitems',
+                    localField: 'orderedItems',
+                    foreignField: '_id',
+                    as: 'petite'
+                }
+            },
+            // Fourth aggregation stage: Unwind the `petitem` array (likely a typo, should be `petite`).
+            {
+                $unwind: "$petite"
+            },
+            // Fifth aggregation stage: Group the data by month and year, calculating the total sales for each group.
+            {
+                $group: {
+                    _id: { month: { $month: "$orderDate" }, year: { $year: "$orderDate" } },
+                    totalSales: { $sum: "$petite.price" }
+                }
+            },
+            // Sixth aggregation stage: Project the necessary fields and rename some fields.
+            {
+                $project: {
+                    _id: 0,
+                    month: "$_id.month",
+                    year: "$_id.year",
+                    sales: "$totalSales"
+                }
+            },
+            // Seventh aggregation stage: Sort the results by year and month in ascending order.
+            {
+                $sort: { year: 1, month: 1 }
+            }
+        ]);
 
-       res.json(salesData);
-   } catch (err) {
-       res.status(500).json({ message: err.message });
-   }
+        // Send the aggregated sales data as a JSON response.
+        res.json(salesData);
+    } catch (err) {
+        // If an error occurs during the aggregation process, send a 500 (Internal Server Error) response.
+        res.status(500).json({ message: err.message });
+    }
 };
 
 exports.getChats = async (req, res) => {
@@ -237,8 +229,8 @@ exports.updatePetItem = async (req, res) => {
 };
 
 exports.createPet = async (req, res) => {
-   const { name, breed } = req.body;
-   const pet = new Pet({ name, breed });
+   const { name, breed, image } = req.body;
+   const pet = new Pet({ name, breed, image });
    try {
        await pet.save();
        res.status(200).send();

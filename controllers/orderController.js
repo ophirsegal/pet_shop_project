@@ -1,7 +1,6 @@
 const Order = require('../models/Order');
 
 // Create a new order
-
 exports.createOrder = async (req, res) => {
     const { orderedItems, username } = req.body;
     try {        // Create a new order instance with the provided data

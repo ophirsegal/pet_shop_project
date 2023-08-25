@@ -2,8 +2,6 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
 
-
-router.post('/petitems/add', adminController.addPetItem);
 router.post('/postTweet', adminController.postTweet);
 router.get('/sales-data', adminController.getSalesData);
 router.get('/getChats/:username', adminController.getChats);

@@ -42,21 +42,22 @@
 
      
     <script>
-        // your OpenWeatherMap API key
-        const API_KEY = '31e06902409b5126aa0b0cb0aa0c9db0';
-        const LOCATION = 'tel aviv, ISRAEL';  // Default location
 
-        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${LOCATION}&units=imperial&appid=${API_KEY}`)
+        const API_KEY = '31e06902409b5126aa0b0cb0aa0c9db0';
+        const LOCATION = 'tel aviv, ISRAEL'; // Default location
+
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${LOCATION}&appid=${API_KEY}`)
         .then(response => response.json())
         .then(data => {
-            const weatherDiv = document.getElementById('weather');
-            weatherDiv.innerHTML = `
-                <h3>${data.name}</h3>
-                <p>${data.weather[0].main} - ${data.weather[0].description}</p>
-                <p>Temperature: ${data.main.temp}�F</p>
-            `;
-        })
-        .catch(error => console.error('Error:', error));
+        const weatherDiv = document.getElementById('weather');
+        const temperatureCelsius = Math.round(data.main.temp - 273.15); // Convert Kelvin to Celsius
+        weatherDiv.innerHTML = `
+            <h3>${data.name}</h3>
+            <p>${data.weather[0].main} - ${data.weather[0].description}</p>
+            <p>Temperature: ${temperatureCelsius}°C</p>
+        `;
+    })
+    .catch(error => console.error('Error:', error));
 
         // Google map
        var mapOptions = {

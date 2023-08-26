@@ -30,15 +30,13 @@ exports.getSalesData = async (req, res) => {
     try {
         // Use the `await` keyword to pause execution until the aggregation result is retrieved.
         const salesData = await Order.aggregate([
-            // First aggregation stage: Match documents where the `isOrdered` field is true.
+           
             {
                 $match: { isOrdered: true }
             },
-            // Second aggregation stage: Unwind the `orderedItems` array.
             {
                 $unwind: "$orderedItems"
             },
-            // Third aggregation stage: Perform a lookup to fetch additional data from the 'petitems' collection.
             {
                 $lookup: {
                     from: 'petitems',
@@ -47,18 +45,15 @@ exports.getSalesData = async (req, res) => {
                     as: 'petite'
                 }
             },
-            // Fourth aggregation stage: Unwind the `petitem` array (likely a typo, should be `petite`).
             {
                 $unwind: "$petite"
             },
-            // Fifth aggregation stage: Group the data by month and year, calculating the total sales for each group.
             {
                 $group: {
                     _id: { month: { $month: "$orderDate" }, year: { $year: "$orderDate" } },
                     totalSales: { $sum: "$petite.price" }
                 }
             },
-            // Sixth aggregation stage: Project the necessary fields and rename some fields.
             {
                 $project: {
                     _id: 0,
@@ -67,7 +62,6 @@ exports.getSalesData = async (req, res) => {
                     sales: "$totalSales"
                 }
             },
-            // Seventh aggregation stage: Sort the results by year and month in ascending order.
             {
                 $sort: { year: 1, month: 1 }
             }
@@ -76,7 +70,6 @@ exports.getSalesData = async (req, res) => {
         // Send the aggregated sales data as a JSON response.
         res.json(salesData);
     } catch (err) {
-        // If an error occurs during the aggregation process, send a 500 (Internal Server Error) response.
         res.status(500).json({ message: err.message });
     }
 };

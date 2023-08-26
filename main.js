@@ -12,7 +12,7 @@ const orderRoutes = require('./routes/orderRoutes');
 const orderController = require('./controllers/orderController');
 // Create an instance of express
 const app = express();
-const Chat = require('./models/Chat'); // Make sure the path is correct
+const Chat = require('./models/Chat'); 
 
 // Create the HTTP server
 const http = require('http').createServer(app);
@@ -63,7 +63,7 @@ app.use('/pet-items', petItemRoutes);
 // Set up our view engine to EJS
 app.set('view engine', 'ejs');
 
-// Connect to MongoDB using Mongoose
+// Connect to MongoDB 
 mongoose.connect('mongodb://127.0.0.1:27017/', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -74,7 +74,6 @@ app.get('/getUsername', function(req, res){
     res.json({username: req.session.username});
   });
   
-// A simple route for file upload
 app.post('/upload', upload.single('myFile'), (req, res) => {
     res.send('File uploaded successfully');
 });

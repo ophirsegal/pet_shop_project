@@ -125,16 +125,7 @@ const seedDB = async () => {
     image: "/images/rfood2.jpg",
     description: "Food for young rabbits."
 },
-
-{ 
-    name: "picnic", 
-    price: 60, 
-    category: "Food", 
-    petId: savedPets[3]._id, 
-    image: "/images/rfood3.jpg",
-    description: "A treat for energetic rabbits."
-},
-
+        
 { 
     name: "all in one", 
     price: 60, 

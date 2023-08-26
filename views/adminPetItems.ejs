@@ -84,7 +84,7 @@ $(document).ready(function() {
                 e.preventDefault();
                 $.ajax({
                     url: '/admin/petItems/delete/<%= petItem._id %>',
-                    method: 'DELETE',
+                    method: 'POST',
                     success: function(response) {
                         location.reload(); // Refresh the page on success
                     },
